@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         File externalCacheDir = getExternalCacheDir();
         printFilePath(externalCacheDir,"getExternalCacheDir()");
 
+        File externalFilesDir = getExternalFilesDir(null);
+        printFilePath(externalFilesDir,"getExternalFilesDir()");
 
         File[] files;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //KeepFileManager.init(getApplicationContext()).createDir();
+        //File dirInFiles = KeepFileManager.init(this).createDirInFiles(null);
 
         File rootDirectory = Environment.getRootDirectory();
         printFilePath(rootDirectory,"Environment.getRootDirectory()");

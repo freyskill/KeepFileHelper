@@ -46,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //File dirInFiles = KeepFileManager.init(this).createDirInFiles(null);
+        File test = KeepFileManager.init(this).createDirInSysteRoot("");
+        printFilePath(test,"=========");
+
 
         File rootDirectory = Environment.getRootDirectory();
         printFilePath(rootDirectory,"Environment.getRootDirectory()");
@@ -62,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         File externalStoragePublicDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         printFilePath(externalStoragePublicDirectory,"Environment.getExternalStoragePublicDirectory()");
 
+        File externalStoragePublicDirectoryPICTURES = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        printFilePath(externalStoragePublicDirectoryPICTURES,"Environment.getExternalStoragePublicDirectory(PICTURES)");
 
     }
 

@@ -1,7 +1,6 @@
 package top.keepempty.file;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import java.io.File;
 
@@ -20,11 +19,17 @@ public class KeepFileManager {
 
     private boolean isInternal = false;
 
+    private KFUtils kfUtils;
+
     private KeepFileManager(Context context){
         this.mContext = context;
+        kfUtils = new KFUtils(context);
     }
 
     public static KeepFileManager init(Context context){
+        if(context==null){
+            throw new IllegalArgumentException("The context can't be null!");
+        }
         if(keepFileManager==null){
             return new KeepFileManager(context.getApplicationContext());
         }
@@ -35,60 +40,53 @@ public class KeepFileManager {
      * 设置保存到内部存储
      * @return
      */
-    public KeepFileManager toInternal4App(){
+    public KeepFileManager toInternal(){
         this.isInternal = true;
-        return keepFileManager;
+        return this;
     }
 
-
-    public KeepFileManager toExternalRoot(){
-        return keepFileManager;
+    public KeepFileManager showLog(){
+        kfUtils.setDebug(true);
+        return this;
     }
 
+    /**
+     * 在应用录创建，通过type指定默认的files、cache目录
+     * @param dirName 需要创建的目录
+     * @param type 指定目录类型
+     *             （KFConstants.ROOT
+     *              KFConstants.CACHE
+     *              KFConstants.FILES）
+     * @return 创建的目录：/data/user/0/你的包名 + type（内部存储）
+     *                   /storage/emulated/0/Android/data/你的包名 + type（外部存储）
+     */
+    public File createDirInAppPkg(String dirName, int type){
+        if(isInternal && kfUtils.isUsableSpace4Int()){
+           return kfUtils.existDirs(type,KFUtils.INT, dirName);
+        }
+        return kfUtils.existDirs(type,KFUtils.EXT, dirName);
+    }
 
     /**
      * 在应用根目录创建
-     * 创建目录：/data/user/0/你的包名 （内部存储）
-     *         /storage/emulated/0/Android/data/你的包名 （外部存储）
      * @param dirName 需要创建的目录
-     * @return
+     * @return 创建的目录：/data/user/0/你的包名 （内部存储）
+     *                 /storage/emulated/0/Android/data/你的包名 （外部存储）
      */
-    public File createDirInRoot(String dirName){
-        if(isInternal && KFUtils.isUsableSpace4Int(mContext)){
-           return existDirs(KFUtils.getInternalDir4Type(mContext,KFConstants.ROOT), dirName);
-        }
-        return existDirs(KFUtils.getExternalDir4Type(mContext,KFConstants.ROOT), dirName);
+    public File createDirInAppPkg(String dirName){
+        return createDirInAppPkg(dirName,KFConstants.ROOT);
     }
 
     /**
-     * /data/user/0/你的包名/files
+     * 在外部存储的根目录创建文件夹
      * @param dirName
      * @return
      */
-    public File createDirInFiles(String dirName){
-        if(isInternal){
-            return existDirs(KFUtils.getInternalDir4Type(mContext,KFConstants.ROOT), dirName);
-        }
-        return existDirs(KFUtils.getExternalDir4Type(mContext,KFConstants.ROOT), dirName);
+    public File createDirInSysteRoot(String dirName){
+        return kfUtils.existDirs(0,KFUtils.SYS, dirName);
     }
 
 
 
 
-    private File existDirs(String root, String dirs){
-        if(TextUtils.isEmpty(dirs)){
-            return new File(root);
-        }
-        String path;
-        if(dirs.startsWith("/")){
-            path = root+dirs;
-        }else{
-            path = root + File.separator + dirs;
-        }
-        File file = new File(path);
-        if(!file.exists()){
-            file.exists();
-        }
-        return file.getAbsoluteFile();
-    }
 }

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         File externalFilesDir = getExternalFilesDir(null);
         printFilePath(externalFilesDir,"getExternalFilesDir()");
 
+
+
         File[] files;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             files = getExternalFilesDirs(Environment.MEDIA_MOUNTED);
@@ -45,12 +49,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        //File dirInFiles = KeepFileManager.init(this).createDirInFiles(null);
-        File test = KeepFileManager.init(this).createDirInSysteRoot("");
+        //File dirInFiles = KeepFileHelper.init(this).createDirInFiles(null);
+        File test = KeepFileHelper.init(this).createDirInSysteRoot("");
         printFilePath(test,"=========");
 
 
-        File rootDirectory = Environment.getRootDirectory();
+        File rootDirectory = Environment.getRootDirectory().getParentFile();
         printFilePath(rootDirectory,"Environment.getRootDirectory()");
 
         File externalStorageDirectory = Environment.getExternalStorageDirectory();

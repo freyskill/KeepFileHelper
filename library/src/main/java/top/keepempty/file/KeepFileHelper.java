@@ -4,48 +4,46 @@ import android.content.Context;
 
 import java.io.File;
 
-import top.keepempty.file.utils.KFUtils;
-
 /**
  * 1.创建本地文件目录
  * 2.获取指定目录文件
  * @auth: frey tse
  */
-public class KeepFileManager {
+public class KeepFileHelper {
 
     private Context mContext;
 
-    private static KeepFileManager keepFileManager;
+    private static KeepFileHelper keepFileHelper;
 
     private boolean isInternal = false;
 
     private KFUtils kfUtils;
 
-    private KeepFileManager(Context context){
+    private KeepFileHelper(Context context){
         this.mContext = context;
         kfUtils = new KFUtils(context);
     }
 
-    public static KeepFileManager init(Context context){
+    public static KeepFileHelper init(Context context){
         if(context==null){
             throw new IllegalArgumentException("The context can't be null!");
         }
-        if(keepFileManager==null){
-            return new KeepFileManager(context.getApplicationContext());
+        if(keepFileHelper ==null){
+            return new KeepFileHelper(context.getApplicationContext());
         }
-        return keepFileManager;
+        return keepFileHelper;
     }
 
     /**
      * 设置保存到内部存储
      * @return
      */
-    public KeepFileManager toInternal(){
+    public KeepFileHelper toInternal(){
         this.isInternal = true;
         return this;
     }
 
-    public KeepFileManager showLog(){
+    public KeepFileHelper showLog(){
         kfUtils.setDebug(true);
         return this;
     }
@@ -54,11 +52,11 @@ public class KeepFileManager {
      * 在应用录创建，通过type指定默认的files、cache目录
      * @param dirName 需要创建的目录
      * @param type 指定目录类型
-     *             （KFConstants.ROOT
-     *              KFConstants.CACHE
+     *             （KFConstants.ROOT,
+     *              KFConstants.CACHE,
      *              KFConstants.FILES）
-     * @return 创建的目录：/data/user/0/你的包名 + type（内部存储）
-     *                   /storage/emulated/0/Android/data/你的包名 + type（外部存储）
+     * @return 创建的目录：/data/user/0/你的包名 + type + dirName（内部存储）
+     *                   /storage/emulated/0/Android/data/你的包名 + type + dirName（外部存储）
      */
     public File createDirInAppPkg(String dirName, int type){
         if(isInternal && kfUtils.isUsableSpace4Int()){
@@ -70,8 +68,8 @@ public class KeepFileManager {
     /**
      * 在应用根目录创建
      * @param dirName 需要创建的目录
-     * @return 创建的目录：/data/user/0/你的包名 （内部存储）
-     *                 /storage/emulated/0/Android/data/你的包名 （外部存储）
+     * @return 创建的目录：/data/user/0/你的包名+dirName （内部存储）
+     *                 /storage/emulated/0/Android/data/你的包名 + dirName （外部存储）
      */
     public File createDirInAppPkg(String dirName){
         return createDirInAppPkg(dirName,KFConstants.ROOT);

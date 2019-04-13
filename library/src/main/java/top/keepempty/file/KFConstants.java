@@ -6,4 +6,6 @@ public class KFConstants {
     public static final int FILES = 1;
     public static final int CACHE = 2;
 
+
+
 }

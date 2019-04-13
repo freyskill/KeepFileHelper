@@ -4,8 +4,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
@@ -50,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //File dirInFiles = KeepFileHelper.init(this).createDirInFiles(null);
-        File test = KeepFileHelper.init(this).createDirInSysteRoot("");
-        printFilePath(test,"=========");
+        //File test = KeepFileHelper.init(this).createDirInSysteRoot("");
+        //printFilePath(test,"=========");
 
 
         File rootDirectory = Environment.getRootDirectory().getParentFile();

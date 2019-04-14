@@ -70,6 +70,13 @@ public class MainActivity extends AppCompatActivity {
         File externalStoragePublicDirectoryPICTURES = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         printFilePath(externalStoragePublicDirectoryPICTURES,"Environment.getExternalStoragePublicDirectory(PICTURES)");
 
+        KeepFileHelper.init(this)
+                //.toInternal()
+                .showLog().createInAppPkg("demo/test");
+
+        KeepFileHelper.init(this).showLog().createInAppPkg("test.txt");
+
+
     }
 
     private void printFilePath(File filesDir,String name){

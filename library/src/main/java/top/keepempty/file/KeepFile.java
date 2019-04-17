@@ -19,4 +19,15 @@ public class KeepFile {
     public KeepFile(File file) {
         this.file = file;
     }
+
+    public boolean isSuccess(){
+        return errorCode == 0 && file !=null;
+    }
+
+    public long getFileSize(){
+        if(file.isFile()){
+            return file.length();
+        }
+        return 0;
+    }
 }

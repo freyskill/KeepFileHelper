@@ -17,4 +17,6 @@ public final class KeepFileConstants {
 
 
 
+    public static final int ERROR_CODE_1 = 1001;
+
 }

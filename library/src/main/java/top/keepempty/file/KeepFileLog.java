@@ -3,11 +3,11 @@ package top.keepempty.file;
 
 import android.util.Log;
 
-public class KFLog {
+public class KeepFileLog {
 
     private static final boolean ADB = true;
 
-    private static final String TAG = KFLog.class.getSimpleName();
+    private static final String TAG = KeepFileLog.class.getSimpleName();
 
     private static final int LOG_DEGREE = Log.VERBOSE;
 

@@ -28,8 +28,6 @@ public final class KeepFileHelper {
 
     static WeakReference<KeepFileHelper> weakReference;
 
-    private OnKeepPermsnCallback onPermissionCallback;
-
     private KeepFileHelper(Context context) {
         this.mContext = context;
         keepFileUtils = new KeepFileUtils(context);
@@ -86,16 +84,6 @@ public final class KeepFileHelper {
      */
     public KeepFileHelper replaceFile() {
         keepFileUtils.setReplace(true);
-        return this;
-    }
-
-
-    public KeepFileHelper showPermissionTips(){
-        return this;
-    }
-
-    public KeepFileHelper setOnPermissionCallback(OnKeepPermsnCallback onPermissionCallback){
-        this.onPermissionCallback = onPermissionCallback;
         return this;
     }
 

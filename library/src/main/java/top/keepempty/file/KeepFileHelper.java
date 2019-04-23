@@ -185,4 +185,12 @@ public final class KeepFileHelper {
         return false;
     }
 
+    /**
+     * 获取文件信息
+     *
+     * @return
+     */
+    public KeepFile getFileInfo(){
+        return null;
+    }
 }

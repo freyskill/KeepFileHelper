@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -217,6 +218,10 @@ public final class KeepFileUtils {
     }
 
 
+    public KeepFile getFileInfo(){
+        return null;
+    }
+
     /**
      * 判断存储空间
      *
@@ -279,4 +284,12 @@ public final class KeepFileUtils {
         return new String[]{path, filename};
     }
 
+    public String renderFileSize(String fileSize) {
+        String[] arr = {"Bytes", "KB", "MB", "GB", "TB"};
+        float srcsize = Float.valueOf(fileSize);
+        int index = (int) (Math.floor(Math.log(srcsize) / Math.log(1024)));
+        double size = srcsize / Math.pow(1024, index);
+        size = Double.valueOf(new DecimalFormat("#.00").format(size));
+        return size + arr[index];
+    }
 }

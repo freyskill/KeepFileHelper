@@ -30,4 +30,23 @@ public class KeepFile {
         }
         return 0;
     }
+
+    /****
+     * 计算文件大小
+     *
+     * @param length
+     * @return
+     */
+    public String ShowLongFileSzie(Long length) {
+        if (length >= 1048576) {
+            return (length / 1048576) + "MB";
+        } else if (length >= 1024) {
+            return (length / 1024) + "KB";
+        } else if (length < 1024) {
+            return length + "B";
+        } else {
+            return "0KB";
+        }
+    }
+
 }
